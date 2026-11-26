@@ -1,0 +1,17 @@
+<Project Sdk="WixToolset.Sdk/6.0.2">
+  <!--
+    Windows Installer (.msi) package for managed / enterprise deployment (Intune, GPO, SCCM).
+    Built by build.ps1:  dotnet build PassManager.Installer.wixproj -c Release -p:Version=1.0.0 -p:AppPublishDir=<publish dir>
+  -->
+  <PropertyGroup>
+    <Version Condition="'$(Version)' == ''">$(VersionPrefix)</Version>
+    <OutputName>PassManager-$(Version)-win-x64</OutputName>
+    <InstallerPlatform>x64</InstallerPlatform>
+    <AppPublishDir Condition="'$(AppPublishDir)' == ''">$(MSBuildThisFileDirectory)..\..\artifacts\publish\win-x64</AppPublishDir>
+    <DefineConstants>AppVersion=$(Version);AppPublishDir=$([MSBuild]::EnsureTrailingSlash('$(AppPublishDir)'));AssetsDir=$(MSBuildThisFileDirectory)..\..\assets\</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WixToolset.UI.wixext" />
+  </ItemGroup>
+</Project>

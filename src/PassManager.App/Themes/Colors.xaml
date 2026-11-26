@@ -1,0 +1,56 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Brand -->
+    <SolidColorBrush x:Key="Brush.Accent" Color="#2563EB" />
+    <SolidColorBrush x:Key="Brush.AccentHover" Color="#1D4ED8" />
+    <SolidColorBrush x:Key="Brush.AccentPressed" Color="#1E40AF" />
+    <SolidColorBrush x:Key="Brush.AccentSubtle" Color="#EFF6FF" />
+    <SolidColorBrush x:Key="Brush.AccentSubtleBorder" Color="#BFDBFE" />
+
+    <!-- Surfaces -->
+    <SolidColorBrush x:Key="Brush.Background" Color="#F3F4F6" />
+    <SolidColorBrush x:Key="Brush.Surface" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="Brush.SurfaceAlt" Color="#F9FAFB" />
+    <SolidColorBrush x:Key="Brush.Hover" Color="#F3F4F6" />
+    <SolidColorBrush x:Key="Brush.Border" Color="#E5E7EB" />
+    <SolidColorBrush x:Key="Brush.BorderStrong" Color="#D1D5DB" />
+    <SolidColorBrush x:Key="Brush.BorderHover" Color="#9CA3AF" />
+
+    <!-- Text -->
+    <SolidColorBrush x:Key="Brush.TextPrimary" Color="#111827" />
+    <SolidColorBrush x:Key="Brush.TextSecondary" Color="#6B7280" />
+    <SolidColorBrush x:Key="Brush.TextTertiary" Color="#9CA3AF" />
+    <SolidColorBrush x:Key="Brush.TextOnAccent" Color="#FFFFFF" />
+
+    <!-- Sidebar -->
+    <SolidColorBrush x:Key="Brush.Sidebar" Color="#0F172A" />
+    <SolidColorBrush x:Key="Brush.SidebarHover" Color="#1E293B" />
+    <SolidColorBrush x:Key="Brush.SidebarSelected" Color="#1E3A8A" />
+    <SolidColorBrush x:Key="Brush.SidebarText" Color="#CBD5E1" />
+    <SolidColorBrush x:Key="Brush.SidebarMuted" Color="#64748B" />
+
+    <!-- Status -->
+    <SolidColorBrush x:Key="Brush.Danger" Color="#DC2626" />
+    <SolidColorBrush x:Key="Brush.DangerHover" Color="#B91C1C" />
+    <SolidColorBrush x:Key="Brush.DangerSubtle" Color="#FEF2F2" />
+    <SolidColorBrush x:Key="Brush.Warning" Color="#B45309" />
+    <SolidColorBrush x:Key="Brush.WarningSubtle" Color="#FFFBEB" />
+    <SolidColorBrush x:Key="Brush.WarningBorder" Color="#FDE68A" />
+    <SolidColorBrush x:Key="Brush.Success" Color="#16A34A" />
+    <SolidColorBrush x:Key="Brush.Favorite" Color="#F59E0B" />
+    <SolidColorBrush x:Key="Brush.Toast" Color="#111827" />
+
+    <!-- Password strength scale -->
+    <SolidColorBrush x:Key="Brush.Strength.VeryWeak" Color="#DC2626" />
+    <SolidColorBrush x:Key="Brush.Strength.Weak" Color="#F97316" />
+    <SolidColorBrush x:Key="Brush.Strength.Fair" Color="#EAB308" />
+    <SolidColorBrush x:Key="Brush.Strength.Strong" Color="#22C55E" />
+    <SolidColorBrush x:Key="Brush.Strength.VeryStrong" Color="#15803D" />
+
+    <!-- Typography -->
+    <FontFamily x:Key="Font.Text">Segoe UI</FontFamily>
+    <FontFamily x:Key="Font.Icons">Segoe Fluent Icons, Segoe MDL2 Assets</FontFamily>
+    <FontFamily x:Key="Font.Mono">Cascadia Mono, Consolas, Courier New</FontFamily>
+
+</ResourceDictionary>

@@ -1,0 +1,23 @@
+<Project>
+  <!-- Shared product metadata (applies to every project, including the WiX installer). -->
+  <PropertyGroup>
+    <Product>PassManager</Product>
+    <Company>PassManager</Company>
+    <Authors>PassManager Team</Authors>
+    <Copyright>Copyright © 2026 PassManager</Copyright>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <NeutralLanguage>en-US</NeutralLanguage>
+  </PropertyGroup>
+
+  <!-- C# build quality gates. -->
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <Deterministic>true</Deterministic>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+</Project>

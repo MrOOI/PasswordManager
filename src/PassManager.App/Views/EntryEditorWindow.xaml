@@ -1,0 +1,89 @@
+<Window x:Class="PassManager.App.Views.EntryEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:PassManager.App.ViewModels"
+        xmlns:helpers="clr-namespace:PassManager.App.Helpers"
+        xmlns:controls="clr-namespace:PassManager.App.Views.Controls"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:EntryEditorViewModel}"
+        Style="{StaticResource Window.Dialog}"
+        Title="{Binding WindowTitle}" AutomationProperties.Name="{Binding WindowTitle}" Width="580">
+    <Grid Margin="30,24,30,26">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding WindowTitle}" Style="{StaticResource Text.Title}" />
+
+        <StackPanel Grid.Row="1" Margin="0,4,0,0">
+            <TextBlock Text="Title" Style="{StaticResource Text.FieldLabel}" />
+            <TextBox Text="{Binding EntryTitle, UpdateSourceTrigger=PropertyChanged}" MaxLength="{Binding TitleMaxLength}"
+                     helpers:InputHelper.Placeholder="e.g. GitHub" helpers:InputHelper.FocusOnLoad="True"
+                     AutomationProperties.Name="Title" />
+
+            <TextBlock Text="Username or email" Style="{StaticResource Text.FieldLabel}" />
+            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" MaxLength="{Binding UsernameMaxLength}"
+                     helpers:InputHelper.Placeholder="name@example.com" AutomationProperties.Name="Username" />
+
+            <TextBlock Text="Password" Style="{StaticResource Text.FieldLabel}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <PasswordBox helpers:PasswordBoxAssist.BoundPassword="{Binding Password, Mode=TwoWay}"
+                             MaxLength="{Binding PasswordMaxLength}" FontFamily="{StaticResource Font.Mono}"
+                             helpers:InputHelper.Placeholder="Password" AutomationProperties.Name="Password"
+                             Visibility="{Binding IsPasswordVisible, Converter={StaticResource BoolToCollapsed}}" />
+                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" MaxLength="{Binding PasswordMaxLength}"
+                         FontFamily="{StaticResource Font.Mono}" helpers:InputHelper.Placeholder="Password"
+                         AutomationProperties.Name="Password (visible)"
+                         Visibility="{Binding IsPasswordVisible, Converter={StaticResource BoolToVisible}}" />
+                <ToggleButton Grid.Column="1" Style="{StaticResource ToggleButton.Icon}" Content="&#xE7B3;" Margin="6,0,0,0"
+                              IsChecked="{Binding IsPasswordVisible}" ToolTip="Show or hide password"
+                              AutomationProperties.Name="Show password" />
+                <Button Grid.Column="2" Style="{StaticResource Button.Icon}" Content="&#xE8B1;" Margin="2,0,0,0"
+                        Command="{Binding GeneratePasswordCommand}" ToolTip="Generate a strong password"
+                        AutomationProperties.Name="Generate password" />
+            </Grid>
+            <controls:StrengthMeter Result="{Binding Strength}" Margin="0,10,0,0" />
+
+            <TextBlock Text="Website" Style="{StaticResource Text.FieldLabel}" />
+            <TextBox Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" MaxLength="{Binding UrlMaxLength}"
+                     helpers:InputHelper.Placeholder="https://example.com" AutomationProperties.Name="Website" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Category" Style="{StaticResource Text.FieldLabel}" />
+                    <ComboBox IsEditable="True" ItemsSource="{Binding Categories}"
+                              Text="{Binding Category, UpdateSourceTrigger=PropertyChanged}"
+                              AutomationProperties.Name="Category" />
+                </StackPanel>
+                <CheckBox Grid.Column="1" Content="Favorite" IsChecked="{Binding IsFavorite}"
+                          VerticalAlignment="Bottom" Margin="20,0,0,9" />
+            </Grid>
+
+            <TextBlock Text="Notes" Style="{StaticResource Text.FieldLabel}" />
+            <TextBox Style="{StaticResource TextBox.Multiline}" Height="96" Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                     MaxLength="{Binding NotesMaxLength}" AutomationProperties.Name="Notes" />
+
+            <TextBlock Text="{Binding ErrorMessage}" Style="{StaticResource Text.Error}" Margin="0,12,0,0"
+                       Visibility="{Binding ErrorMessage, Converter={StaticResource ValueToVisible}}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0">
+            <Button Content="Cancel" IsCancel="True" Command="{Binding CancelCommand}" MinWidth="100" />
+            <Button Content="Save" Style="{StaticResource Button.Primary}" IsDefault="True" Command="{Binding SaveCommand}"
+                    MinWidth="100" Margin="10,0,0,0" />
+        </StackPanel>
+    </Grid>
+</Window>

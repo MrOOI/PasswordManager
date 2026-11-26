@@ -1,0 +1,44 @@
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
+
+namespace PassManager.App.Helpers;
+
+/// <summary>Placeholder text and initial-focus support for input controls.</summary>
+public static class InputHelper
+{
+    public static readonly DependencyProperty PlaceholderProperty = DependencyProperty.RegisterAttached(
+        "Placeholder", typeof(string), typeof(InputHelper), new PropertyMetadata(string.Empty));
+
+    public static readonly DependencyProperty FocusOnLoadProperty = DependencyProperty.RegisterAttached(
+        "FocusOnLoad", typeof(bool), typeof(InputHelper), new PropertyMetadata(false, OnFocusOnLoadChanged));
+
+    public static string GetPlaceholder(DependencyObject element) => (string)element.GetValue(PlaceholderProperty);
+
+    public static void SetPlaceholder(DependencyObject element, string value) => element.SetValue(PlaceholderProperty, value);
+
+    public static bool GetFocusOnLoad(DependencyObject element) => (bool)element.GetValue(FocusOnLoadProperty);
+
+    public static void SetFocusOnLoad(DependencyObject element, bool value) => element.SetValue(FocusOnLoadProperty, value);
+
+    private static void OnFocusOnLoadChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is FrameworkElement element && (bool)e.NewValue)
+        {
+            element.Loaded += OnLoaded;
+        }
+    }
+
+    private static void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        var element = (FrameworkElement)sender;
+        element.Loaded -= OnLoaded;
+        element.Dispatcher.InvokeAsync(
+            () =>
+            {
+                element.Focus();
+                Keyboard.Focus(element);
+            },
+            DispatcherPriority.Input);
+    }
+}

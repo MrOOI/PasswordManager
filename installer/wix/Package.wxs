@@ -1,0 +1,50 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+
+  <!-- UpgradeCode must never change: it ties all versions together for in-place upgrades. -->
+  <Package Name="PassManager"
+           Manufacturer="PassManager"
+           Version="$(var.AppVersion)"
+           UpgradeCode="3E9A7C55-2B4D-4C1E-8F6A-9D0B1C2E3F40"
+           Scope="perMachine"
+           Compressed="yes">
+
+    <SummaryInformation Description="PassManager - secure offline password manager" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <Icon Id="AppIcon" SourceFile="$(var.AssetsDir)app.ico" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="PassManager" />
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder" />
+
+    <Feature Id="Main" Title="PassManager" Level="1">
+      <Component Directory="INSTALLFOLDER">
+        <File Id="PassManagerExe" Source="$(var.AppPublishDir)PassManager.exe" KeyPath="yes" />
+      </Component>
+
+      <!-- Shortcut in its own component with an HKCU key path (required by ICE43/ICE57). -->
+      <Component Id="StartMenuShortcutComponent" Directory="ProgramMenuFolder">
+        <Shortcut Id="StartMenuShortcut"
+                  Name="PassManager"
+                  Description="Secure offline password manager"
+                  Target="[INSTALLFOLDER]PassManager.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="AppIcon" />
+        <RegistryValue Root="HKCU" Key="Software\PassManager\Installer" Name="StartMenuShortcut"
+                       Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </Feature>
+
+    <!-- Standard install-directory wizard, without a license page. -->
+    <UI>
+      <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="99" />
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="99" />
+    </UI>
+  </Package>
+</Wix>
